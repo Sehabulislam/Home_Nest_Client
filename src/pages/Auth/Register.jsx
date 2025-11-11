@@ -1,15 +1,47 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { AuthContext } from "../../context/AuthProvider";
+import { toast } from "react-toastify";
 
 const Register = () => {
+  const {signWithGoogle,setUser,createUser} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleCreateUser = (e)=>{
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const photo = form.photo.value;
+    const password = form.password.value;
+    console.log(name,email,photo,password);
+    createUser(email,password)
+    .then(result =>{
+      setUser(result.user);
+      // console.log(result.user);
+      toast.success("Your Account Create Successfully.")
+      navigate('/')
+    }).catch(error =>{
+      toast.error(error.message);
+    })
+  }
+  const handleSignUpWithGoogle = () =>{
+    signWithGoogle()
+    .then(result =>{
+      setUser(result.user);
+      toast.success("Sign Up with Google Successfully.");
+      navigate('/')
+    }).catch(error=>{
+      toast.error(error.message)
+    })
+  }
   return (
     <div className="flex flex-col items-center justify-center py-10">
       <div className="p-6 sm:p-8 rounded-2xl bg-[url(./bg2.svg)] bg-cover bg-center border border-gray-200 shadow-sm">
         <h1 className="text-white text-center text-4xl font-semibold">
           Create your account
         </h1>
-        <form className="mt-10 space-y-6">
+        <form onSubmit={handleCreateUser} className="mt-10 space-y-6">
           <div>
             <label className="text-white text-sm font-medium mb-2">
               Your Name
@@ -67,7 +99,6 @@ const Register = () => {
                 className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-slate-300 rounded"
               />
               <label
-                for="remember-me"
                 className="ml-3 block text-sm text-slate-900"
               >
                 I accept the{" "}
@@ -80,15 +111,15 @@ const Register = () => {
 
           <div className="">
             <button
-              type="button"
-              className="w-full py-2 px-4 text-[15px] font-medium tracking-wide rounded-md text-white bg-violet-800 hover:bg-blue-700 focus:outline-none cursor-pointer"
+              type="submit"
+              className="w-full py-2 px-4 text-[15px] font-medium tracking-wide rounded-md text-white bg-pink-700 hover:bg-pink-600 focus:outline-none cursor-pointer"
             >
-              Sign in
+              Register
             </button>
           </div>
         </form>
         <div className="divider">OR</div>
-        <button className="btn bg-white text-black border-[#e5e5e5] w-full">
+        <button onClick={handleSignUpWithGoogle} className="btn bg-white text-black border-[#e5e5e5] w-full">
           <FcGoogle size={20} />
           Login with Google
         </button>
