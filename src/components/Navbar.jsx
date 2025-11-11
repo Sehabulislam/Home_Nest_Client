@@ -1,8 +1,17 @@
 import React from "react";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
+  const links = <>
+   <NavLink to={'/'} className={({isActive}) => isActive ? 'font-semibold border-b-2' : 'text-gray-500'}>Home</NavLink>
+        <NavLink to={'/allProperties'} className={({isActive}) => isActive ? 'font-semibold border-b-2' : 'text-gray-500'}>All Properties</NavLink>
+        <NavLink to={'/myProperties'} className={({isActive}) => isActive ? 'font-semibold border-b-2' : 'text-gray-500'}>My Properties</NavLink>
+        <NavLink to={'/myRatings'} className={({isActive}) => isActive ? 'font-semibold border-b-2' : 'text-gray-500'}>My Ratings</NavLink>
+        <NavLink to={'/addProperties'} className={({isActive}) => isActive ? 'font-semibold border-b-2' : 'text-gray-500'}>Add Properties</NavLink>
+  </>
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="shadow-sm">
+      <div className="navbar bg-base-100 md:w-11/12 mx-auto">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -25,54 +34,29 @@ const Navbar = () => {
           <ul
             tabIndex="-1"
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul>
+          >{links}</ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+          <h1 className="text-2xl font-bold">.Home Nest</h1>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>Item 1</a>
-          </li>
-          <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <a>Item 3</a>
-          </li>
-        </ul>
+        <ul className="menu menu-horizontal px-1 gap-5">{links}</ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Button</a>
+      <div className="navbar-end gap-2">
+        {/* {
+          user ? <Link onClick={handleSignOut} className="px-4 py-2 text-md rounded-md cursor-pointer text-white font-bold border bg-linear-to-bl from-violet-500 to-fuchsia-500">
+            Sign Out
+          </Link> : */}
+          <>
+          <Link to={'/login'} className="px-4 py-2 text-md rounded-3xl cursor-pointer text-slate-900 border border-gray-400 bg-transparent hover:bg-gray-50 transition-all">
+            Login
+          </Link>
+          <Link to={'/register'} className="px-4 py-2 text-md rounded-3xl cursor-pointer text-slate-900 border border-gray-400 bg-transparent hover:bg-gray-50 transition-all">
+            Register
+          </Link>
+          </>
+          {/* } */}
       </div>
+    </div>
     </div>
   );
 };
