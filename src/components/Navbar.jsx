@@ -2,13 +2,50 @@ import React from "react";
 import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
-  const links = <>
-   <NavLink to={'/'} className={({isActive}) => isActive ? 'font-semibold border-b-2' : 'text-gray-500'}>Home</NavLink>
-        <NavLink to={'/allProperties'} className={({isActive}) => isActive ? 'font-semibold border-b-2' : 'text-gray-500'}>All Properties</NavLink>
-        <NavLink to={'/myProperties'} className={({isActive}) => isActive ? 'font-semibold border-b-2' : 'text-gray-500'}>My Properties</NavLink>
-        <NavLink to={'/myRatings'} className={({isActive}) => isActive ? 'font-semibold border-b-2' : 'text-gray-500'}>My Ratings</NavLink>
-        <NavLink to={'/addProperties'} className={({isActive}) => isActive ? 'font-semibold border-b-2' : 'text-gray-500'}>Add Properties</NavLink>
-  </>
+  const links = (
+    <>
+      <NavLink
+        to={"/"}
+        className={({ isActive }) =>
+          isActive ? "font-semibold border-b-2" : "text-gray-500"
+        }
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to={"/allProperties"}
+        className={({ isActive }) =>
+          isActive ? "font-semibold border-b-2" : "text-gray-500"
+        }
+      >
+        All Properties
+      </NavLink>
+      <NavLink
+        to={"/myProperties"}
+        className={({ isActive }) =>
+          isActive ? "font-semibold border-b-2" : "text-gray-500"
+        }
+      >
+        My Properties
+      </NavLink>
+      <NavLink
+        to={"/myRatings"}
+        className={({ isActive }) =>
+          isActive ? "font-semibold border-b-2" : "text-gray-500"
+        }
+      >
+        My Ratings
+      </NavLink>
+      <NavLink
+        to={"/addProperties"}
+        className={({ isActive }) =>
+          isActive ? "font-semibold border-b-2" : "text-gray-500"
+        }
+      >
+        Add Properties
+      </NavLink>
+    </>
+  );
   return (
     <div className="shadow-sm">
       <div className="navbar bg-base-100 md:w-11/12 mx-auto">
@@ -43,7 +80,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-end gap-2">
         {/* {
-          user ? <Link onClick={handleSignOut} className="px-4 py-2 text-md rounded-md cursor-pointer text-white font-bold border bg-linear-to-bl from-violet-500 to-fuchsia-500">
+          user ? <Link onClick={'[]'} className="px-4 py-2 text-md rounded-md cursor-pointer text-white font-bold border bg-linear-to-bl from-violet-500 to-fuchsia-500">
             Sign Out
           </Link> : */}
           <>
@@ -54,7 +91,7 @@ const Navbar = () => {
             Register
           </Link>
           </>
-          {/* } */}
+         {/* } */}
       </div>
     </div>
     </div>

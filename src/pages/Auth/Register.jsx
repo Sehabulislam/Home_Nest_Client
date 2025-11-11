@@ -1,97 +1,106 @@
 import React from "react";
+import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router";
 
 const Register = () => {
   return (
-    <div class="flex flex-col items-center justify-center py-10">
-      <div class="p-6 sm:p-8 rounded-2xl bg-[url(./bg2.svg)] bg-cover bg-center border border-gray-200 shadow-sm">
-        <h1 class="text-white text-center text-4xl font-semibold">
+    <div className="flex flex-col items-center justify-center py-10">
+      <div className="p-6 sm:p-8 rounded-2xl bg-[url(./bg2.svg)] bg-cover bg-center border border-gray-200 shadow-sm">
+        <h1 className="text-white text-center text-4xl font-semibold">
           Create your account
         </h1>
-        <form class="mt-12 space-y-6">
+        <form className="mt-10 space-y-6">
           <div>
-            <label class="text-white text-sm font-medium mb-2">
+            <label className="text-white text-sm font-medium mb-2">
               Your Name
             </label>
             <input
-              name="username"
+              name="name"
               type="text"
               required
-              class="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600 placeholder-white"
+              className="w-full text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600 placeholder-white text-slate-100"
               placeholder="Enter your name"
             />
           </div>
           <div>
-            <label class="text-white text-sm font-medium mb-2">
+            <label className="text-white text-sm font-medium mb-2">
               Your Email
             </label>
             <input
-              name="username"
+              name="email"
               type="email"
               required
-              class="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
+              className="w-full text-black text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600 placeholder-white"
               placeholder="Enter your email"
             />
           </div>
           <div>
-            <label class="text-gray-700 text-sm font-medium mb-2">
+            <label className="text-gray-700 text-sm font-medium mb-2">
               Your Photo URL
             </label>
             <input
-              name="username"
-              type="text"
+              name="photo"
+              type="url"
               required
-              class="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
+              className="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
               placeholder="Enter your Photo URL"
             />
           </div>
           <div>
-            <label class="text-slate-900 text-sm font-medium mb-2">
+            <label className="text-slate-900 text-sm font-medium mb-2">
               Your Password
             </label>
             <input
               name="password"
               type="password"
               required
-              class="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
+              className="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
               placeholder="Enter your password"
             />
           </div>
-          <div class="flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center">
               <input
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-slate-300 rounded"
+                className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-slate-300 rounded"
               />
               <label
                 for="remember-me"
-                class="ml-3 block text-sm text-slate-900"
+                className="ml-3 block text-sm text-slate-900"
               >
-                Remember me
+                I accept the{" "}
+                <span className="text-blue-500 hover:underline ">
+                  Terms and Conditions
+                </span>
               </label>
             </div>
           </div>
 
-          <div class="!mt-12">
+          <div className="">
             <button
               type="button"
-              class="w-full py-2 px-4 text-[15px] font-medium tracking-wide rounded-md text-white bg-violet-800 hover:bg-blue-700 focus:outline-none cursor-pointer"
+              className="w-full py-2 px-4 text-[15px] font-medium tracking-wide rounded-md text-white bg-violet-800 hover:bg-blue-700 focus:outline-none cursor-pointer"
             >
               Sign in
             </button>
           </div>
-          <p class="text-slate-900 text-sm mt-6 text-center">
-            Don't have an account?{" "}
-            <Link
-              to={"/register"}
-              class="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold"
-            >
-              Register here
-            </Link>
-          </p>
         </form>
+        <div className="divider">OR</div>
+        <button className="btn bg-white text-black border-[#e5e5e5] w-full">
+          <FcGoogle size={20} />
+          Login with Google
+        </button>
+        <p className="text-slate-900 text-sm mt-6 text-center">
+          Already have an account?{" "}
+          <Link
+            to={"/login"}
+            className="text-blue-600 hover:underline ml-1 whitespace-nowrap"
+          >
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
