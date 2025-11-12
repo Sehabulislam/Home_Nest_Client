@@ -109,7 +109,7 @@ const AddProperty = () => {
               </label>
               <textarea
                 placeholder="e.g. I bought this product 3 month ago. did not used more than 1/2 time. actually learning guitar is so tough..... "
-                rows="6"
+                rows="4"
                 name="description"
                 className="w-full px-4 text-slate-800 bg-white border border-gray-300 focus:border-slate-900 text-sm pt-3 outline-0 rounded-md"
               ></textarea>
