@@ -2,8 +2,11 @@ import React from 'react';
 
 const AllProperties = () => {
     return (
-        <div>
-            <h2>allProperties</h2>
+        <div className='py-5'>
+            <h2 className='text-4xl font-bold text-center'>All Properties</h2>
+            <div className="">
+                
+            </div>
         </div>
     );
 };
