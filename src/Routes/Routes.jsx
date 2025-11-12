@@ -9,12 +9,14 @@ import MyRatings from "../pages/Ratings/MyRatings";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import Error404 from "../pages/Error404";
+import Loading from "../pages/Loading";
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    hydrateFallbackElement : <Loading></Loading>,
     children : [
       {
         path : '/',
