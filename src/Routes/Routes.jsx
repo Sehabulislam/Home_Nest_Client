@@ -8,6 +8,7 @@ import PropertyDetails from "../pages/Properties/PropertyDetails";
 import MyRatings from "../pages/Ratings/MyRatings";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
+import Error404 from "../pages/Error404";
 
 
 export const router = createBrowserRouter([
@@ -49,4 +50,8 @@ export const router = createBrowserRouter([
       },
     ]
   },
+  {
+    path : '*',
+    element : <Error404></Error404>
+  }
 ]);
