@@ -1,60 +1,15 @@
-import React, { use, useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthProvider";
-import useAxios from "../../hooks/useAxios";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
+import React from "react";
 
-const AddProperty = () => {
-  const [properties,setProperties] = useState([])
-  const { user } = useContext(AuthContext);
-  const axiosInstance = useAxios();
-  useEffect(()=>{
-    axiosInstance('/allProperties')
-    .then(data => {
-      setProperties(data.data);
-    }).catch(error => toast.error(error.message))
-  },[axiosInstance])
-  const navigate = useNavigate();
-  const handleAddProperty = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const propertyName = form.name.value;
-    const price = form.price.value;
-    const image = form.propertyImage.value;
-    const seller_Name = form.sellerName.value;
-    const seller_Email = form.sellerEmail.value;
-    const location = form.location.value;
-    const category = form.category.value;
-    const description = form.description.value;
-    const postedDate = new Date().toISOString().split("T")[0];
-    const newProperty = {
-      propertyName,
-      price,
-      location,
-      category,
-      image,
-      postedDate,
-      seller_Name,
-      seller_Email,
-      description,
-    };
-    axiosInstance.post("/allProperties", newProperty).then((data) => {
-      if (data.data.insertedId) {
-        setProperties([...properties,newProperty]);
-        toast.success("Properties created successfully.");
-        navigate("/allProperties");
-      }
-    });
-  };
+const UpdateProperty = () => {
   return (
     <div>
       <div className="py-8 w-full max-w-3xl mx-auto">
         <div>
           <h2 className="text-4xl text-slate-900 text-center font-bold">
-            Add New Property
+            Update Property
           </h2>
         </div>
-        <form onSubmit={handleAddProperty} className="mt-8">
+        <form onSubmit={[]} className="mt-8">
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label className="text-sm text-slate-900 font-medium mb-2 block">
@@ -101,7 +56,6 @@ const AddProperty = () => {
                 <option>Land</option>
               </select>
             </div>
-            
             <div>
               <label className="text-sm text-slate-900 font-medium mb-2 block">
                 User Name
@@ -109,8 +63,7 @@ const AddProperty = () => {
               <input
                 type="text"
                 name="sellerName"
-                defaultValue={user?.displayName}
-                readOnly
+                // defaultValue={user?.displayName}/
                 className="w-full py-3 px-4 text-slate-800 bg-white border border-gray-300 focus:border-slate-900 text-sm outline-0 rounded-md"
               />
             </div>
@@ -121,8 +74,7 @@ const AddProperty = () => {
               <input
                 type="text"
                 name="sellerEmail"
-                defaultValue={user?.email}
-                readOnly
+                // defaultValue={user?.email}
                 className="w-full py-3 px-4 text-slate-800 bg-white border border-gray-300 focus:border-slate-900 text-sm outline-0 rounded-md"
               />
             </div>
@@ -153,7 +105,7 @@ const AddProperty = () => {
             type="submit"
             className="btn bg-black text-white hover:bg-white hover:text-black  text-sm px-4 py-3 w-full rounded-md cursor-pointer mt-6"
           >
-            Create a new property
+            Update Property
           </button>
         </form>
       </div>
@@ -161,4 +113,4 @@ const AddProperty = () => {
   );
 };
 
-export default AddProperty;
+export default UpdateProperty;

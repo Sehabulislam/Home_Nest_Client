@@ -1,22 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate} from "react-router";
 import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const navigate = useNavigate()
   const {signWithGoogle,signInUser,setUser} = useContext(AuthContext);
+  const [show,setShow] = useState(false);
   const handleSignInUser = (e)=>{
       e.preventDefault();
       const form = e.target;
       const email = form.email.value;
       const password = form.password.value;
-      console.log(email,password);
       signInUser(email,password)
       .then(result =>{
         setUser(result.user);
-        // console.log(result.user);
         toast.success("Your Account Create Successfully.")
         navigate('/')
       }).catch(error =>{
@@ -54,17 +54,18 @@ const Login = () => {
               placeholder="Enter user email"
             />
           </div>
-          <div>
+          <div className="relative">
             <label className="text-slate-900 text-sm font-medium mb-2">
               Password
             </label>
             <input
               name="password"
-              type="password"
+              type={show ? "password" : 'text'}
               required
               className="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
               placeholder="Enter password"
             />
+            <span onClick={()=>setShow(!show)} className="absolute top-10 right-4">{show ? <FaEye size={17}/> : <FaEyeSlash size={17}/>}</span>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center">

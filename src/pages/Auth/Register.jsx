@@ -1,40 +1,59 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
-  const {signWithGoogle,setUser,createUser} = useContext(AuthContext);
+  const { signWithGoogle, setUser, createUser, userUpdateProfile } =
+    useContext(AuthContext);
   const navigate = useNavigate();
-  const handleCreateUser = (e)=>{
+  const [show,setShow] = useState(false);
+  const handleCreateUser = (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
     const photo = form.photo.value;
     const password = form.password.value;
-    console.log(name,email,photo,password);
-    createUser(email,password)
-    .then(result =>{
-      setUser(result.user);
-      // console.log(result.user);
-      toast.success("Your Account Create Successfully.")
-      navigate('/')
-    }).catch(error =>{
-      toast.error(error.message);
-    })
-  }
-  const handleSignUpWithGoogle = () =>{
+    const passwordRegEx = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+    if (!passwordRegEx.test(password)) {
+      toast.error(
+        "Password must be at least 6 characters long, contain one uppercase letter, one lowercase letter, one number, and one special character."
+      );
+      return;
+    }
+    createUser(email, password)
+      .then((result) => {
+        userUpdateProfile({
+          displayName: name,
+          photoURL: photo,
+        })
+          .then(() => {
+            setUser({ ...result.user, displayName: name, photoURL: photo });
+            toast.success("Your Account Create Successfully.");
+            navigate("/");
+          })
+          .catch((error) => {
+            toast.error(error.message);
+          });
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+  const handleSignUpWithGoogle = () => {
     signWithGoogle()
-    .then(result =>{
-      setUser(result.user);
-      toast.success("Sign Up with Google Successfully.");
-      navigate('/')
-    }).catch(error=>{
-      toast.error(error.message)
-    })
-  }
+      .then((result) => {
+        setUser(result.user);
+        toast.success("Sign Up with Google Successfully.");
+        navigate("/");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
   return (
     <div className="flex flex-col items-center justify-center py-10">
       <div className="p-6 sm:p-8 rounded-2xl bg-[url(./bg2.svg)] bg-cover bg-center border border-gray-200 shadow-sm">
@@ -78,17 +97,18 @@ const Register = () => {
               placeholder="Enter your Photo URL"
             />
           </div>
-          <div>
+          <div className="relative">
             <label className="text-slate-900 text-sm font-medium mb-2">
               Your Password
             </label>
             <input
               name="password"
-              type="password"
+              type={show ? "password" : 'text'}
               required
               className="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
               placeholder="Enter your password"
             />
+            <span onClick={()=>setShow(!show)} className="absolute top-10 right-4">{show ? <FaEye size={17}/> : <FaEyeSlash size={17}/>}</span>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center">
@@ -98,9 +118,7 @@ const Register = () => {
                 type="checkbox"
                 className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-slate-300 rounded"
               />
-              <label
-                className="ml-3 block text-sm text-slate-900"
-              >
+              <label className="ml-3 block text-sm text-slate-900">
                 I accept the{" "}
                 <span className="text-blue-500 hover:underline ">
                   Terms and Conditions
@@ -119,7 +137,10 @@ const Register = () => {
           </div>
         </form>
         <div className="divider">OR</div>
-        <button onClick={handleSignUpWithGoogle} className="btn bg-white text-black border-[#e5e5e5] w-full">
+        <button
+          onClick={handleSignUpWithGoogle}
+          className="btn bg-white text-black border-[#e5e5e5] w-full"
+        >
           <FcGoogle size={20} />
           Login with Google
         </button>

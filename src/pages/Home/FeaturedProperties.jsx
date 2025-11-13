@@ -6,7 +6,7 @@ const FeaturedProperties = ({propertiesPromise}) => {
     return (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:w-10/12 mx-auto'>
             {
-                properties.map(property =><PropertyCard property={property}></PropertyCard> )
+                properties.map(property =><PropertyCard key={property._id} property={property}></PropertyCard> )
             }
         </div>
     );

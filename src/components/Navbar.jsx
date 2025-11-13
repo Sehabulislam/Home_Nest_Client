@@ -112,7 +112,7 @@ const Navbar = () => {
                 tabIndex="-1"
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-60 p-2 shadow gap-3"
               >
-                <li className="text-xl font-bold">{user?.displayName || "Your Name"}</li>
+                <li className="text-xl font-bold">{user?.displayName}</li>
                 <li className="font-semibold text-wrap">{user?.email}</li>
                 <li>
                   <button onClick={handleSignOut} className="btn btn-soft btn-error hover:text-white">

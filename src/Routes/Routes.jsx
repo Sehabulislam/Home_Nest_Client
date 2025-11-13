@@ -10,50 +10,72 @@ import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import Error404 from "../pages/Error404";
 import Loading from "../pages/Loading";
-
+import UpdateProperty from "../pages/Properties/UpdateProperty";
+import PrivateRoute from "../components/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    hydrateFallbackElement : <Loading></Loading>,
-    children : [
+    hydrateFallbackElement: <Loading></Loading>,
+    children: [
       {
-        path : '/',
-        element : <Home></Home>
+        path: "/",
+        element: <Home></Home>,
       },
       {
-        path : '/allProperties',
-        element : <AllProperties></AllProperties>
+        path: "/allProperties",
+        element: <AllProperties></AllProperties>,
       },
       {
-        path : '/addProperties',
-        element : <AddProperty></AddProperty>
+        path: "/addProperties",
+        element: (
+          <PrivateRoute>
+            <AddProperty></AddProperty>
+          </PrivateRoute>
+        ),
       },
       {
-        path : '/myProperties',
-        element : <MyProperties></MyProperties>
+        path: "/myProperties",
+        element: (
+          <PrivateRoute>
+            <MyProperties></MyProperties>
+          </PrivateRoute>
+        ),
       },
       {
-        path : '/propertyDetails/:id',
-        element : <PropertyDetails></PropertyDetails>
+        path: "/updataProperty",
+        element: <UpdateProperty></UpdateProperty>,
       },
       {
-        path : '/myRatings',
-        element : <MyRatings></MyRatings>
+        path: "/propertyDetails/:id",
+        loader : ({params}) => fetch(`http://localhost:3000/propertyDetails/${params.id}`),
+        element: (
+          <PrivateRoute>
+            <PropertyDetails></PropertyDetails>
+          </PrivateRoute>
+        ),
       },
       {
-        path : '/Login',
-        element : <Login></Login>
+        path: "/myRatings",
+        element: (
+          <PrivateRoute>
+            <MyRatings></MyRatings>
+          </PrivateRoute>
+        ),
       },
       {
-        path : '/register',
-        element : <Register></Register>
+        path: "/Login",
+        element: <Login></Login>,
       },
-    ]
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
+    ],
   },
   {
-    path : '*',
-    element : <Error404></Error404>
-  }
+    path: "*",
+    element: <Error404></Error404>,
+  },
 ]);
