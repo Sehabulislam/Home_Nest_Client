@@ -1,6 +1,50 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../context/AuthProvider";
+import { useLoaderData, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const UpdateProperty = () => {
+  const { user } = useContext(AuthContext);
+  const { _id, propertyName, price, location, category, image, description } =
+    useLoaderData();
+  console.log(_id, propertyName);
+  const navigate = useNavigate();
+
+  const handleUpdateProperty = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const propertyName = form.name.value;
+    const price = form.price.value;
+    const image = form.propertyImage.value;
+    const location = form.location.value;
+    const category = form.category.value;
+    const description = form.description.value;
+    const updateProperty = {
+      propertyName,
+      price,
+      image,
+      location,
+      category,
+      description,
+    };
+    fetch(`http://localhost:3000/myProperties/${_id}`, {
+      method : 'PUT',
+      headers : {
+        'content-type' : "application/json"
+      },
+      body : JSON.stringify(updateProperty)
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.matchedCount) {
+          toast.success("Property updated successfully.");
+          navigate("/myProperties");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div>
       <div className="py-8 w-full max-w-3xl mx-auto">
@@ -9,7 +53,7 @@ const UpdateProperty = () => {
             Update Property
           </h2>
         </div>
-        <form onSubmit={[]} className="mt-8">
+        <form onSubmit={handleUpdateProperty} className="mt-8">
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label className="text-sm text-slate-900 font-medium mb-2 block">
@@ -18,6 +62,7 @@ const UpdateProperty = () => {
               <input
                 type="text"
                 name="name"
+                defaultValue={propertyName}
                 placeholder="Your property name"
                 className="w-full py-3 px-4 text-slate-800 bg-white border border-gray-300 focus:border-slate-900 text-sm outline-0 rounded-md"
               />
@@ -29,6 +74,7 @@ const UpdateProperty = () => {
               <input
                 type="text"
                 name="price"
+                defaultValue={price}
                 placeholder="Your property price"
                 className="w-full py-3 px-4 text-slate-800 bg-white border border-gray-300 focus:border-slate-900 text-sm outline-0 rounded-md"
               />
@@ -40,6 +86,7 @@ const UpdateProperty = () => {
               <input
                 type="url"
                 placeholder="https://..."
+                defaultValue={image}
                 name="propertyImage"
                 className="w-full py-3 px-4 text-slate-800 bg-white border border-gray-300 focus:border-slate-900 text-sm outline-0 rounded-md"
               />
@@ -48,7 +95,11 @@ const UpdateProperty = () => {
               <label className="text-sm text-slate-900 font-medium mb-2 block">
                 Category
               </label>
-              <select name="category" className="select w-full h-11">
+              <select
+                name="category"
+                className="select w-full h-11"
+                defaultValue={category}
+              >
                 <option disabled={true}>Select Category</option>
                 <option>Rent</option>
                 <option>Sale</option>
@@ -63,7 +114,7 @@ const UpdateProperty = () => {
               <input
                 type="text"
                 name="sellerName"
-                // defaultValue={user?.displayName}/
+                defaultValue={user?.displayName}
                 className="w-full py-3 px-4 text-slate-800 bg-white border border-gray-300 focus:border-slate-900 text-sm outline-0 rounded-md"
               />
             </div>
@@ -74,7 +125,7 @@ const UpdateProperty = () => {
               <input
                 type="text"
                 name="sellerEmail"
-                // defaultValue={user?.email}
+                defaultValue={user?.email}
                 className="w-full py-3 px-4 text-slate-800 bg-white border border-gray-300 focus:border-slate-900 text-sm outline-0 rounded-md"
               />
             </div>
@@ -85,6 +136,7 @@ const UpdateProperty = () => {
               <input
                 type="text"
                 name="location"
+                defaultValue={location}
                 placeholder="City, Country"
                 className="w-full py-3 px-4 text-slate-800 bg-white border border-gray-300 focus:border-slate-900 text-sm outline-0 rounded-md"
               />
@@ -94,9 +146,10 @@ const UpdateProperty = () => {
                 Description
               </label>
               <textarea
-                placeholder="e.g. I bought this product 3 month ago. did not used more than 1/2 time. actually learning guitar is so tough..... "
+                placeholder="Highlight the best selling points: size, recent upgrades, unique features, and neighborhood details."
                 rows="4"
                 name="description"
+                defaultValue={description}
                 className="w-full px-4 text-slate-800 bg-white border border-gray-300 focus:border-slate-900 text-sm pt-3 outline-0 rounded-md"
               ></textarea>
             </div>

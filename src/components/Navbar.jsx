@@ -1,19 +1,31 @@
-import React, { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../context/AuthProvider";
 import { toast } from "react-toastify";
+import { FiMoon } from "react-icons/fi";
+import { FaSun } from "react-icons/fa";
 
 const Navbar = () => {
-  const { user,setUser,signOutUser } = useContext(AuthContext);
-  const handleSignOut =()=>{
+  const { user, setUser, signOutUser } = useContext(AuthContext);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
+  const handleSignOut = () => {
     signOutUser()
-    .then(()=>{
-      setUser(null);
-    })
-    .catch(error=>{
-      toast.error(error.message)
-    })
-  }
+      .then(() => {
+        setUser(null);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
   const links = (
     <>
@@ -94,6 +106,17 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1 gap-5">{links}</ul>
         </div>
         <div className="navbar-end gap-2">
+          <label className="flex cursor-pointer gap-2">
+            <FaSun size={22} />
+            <input
+              type="checkbox"
+              onChange={(e) => handleTheme(e.target.checked)}
+              defaultChecked={localStorage.getItem("theme") === "dark"}
+              className="toggle theme-controller"
+            />
+            <FiMoon size={22} />
+          </label>
+
           {user ? (
             <div className="dropdown dropdown-end">
               <div
@@ -104,7 +127,10 @@ const Navbar = () => {
                 <div className="w-10 rounded-full">
                   <img
                     alt="Tailwind CSS Navbar component"
-                    src={user?.photoURL || 'https://st2.depositphotos.com/3336339/8196/i/450/depositphotos_81969890-stock-photo-red-chaotic-cubes-wall-background.jpg'}
+                    src={
+                      user?.photoURL ||
+                      "https://st2.depositphotos.com/3336339/8196/i/450/depositphotos_81969890-stock-photo-red-chaotic-cubes-wall-background.jpg"
+                    }
                   />
                 </div>
               </div>
@@ -115,7 +141,10 @@ const Navbar = () => {
                 <li className="text-xl font-bold">{user?.displayName}</li>
                 <li className="font-semibold text-wrap">{user?.email}</li>
                 <li>
-                  <button onClick={handleSignOut} className="btn btn-soft btn-error hover:text-white">
+                  <button
+                    onClick={handleSignOut}
+                    className="btn btn-soft btn-error hover:text-white"
+                  >
                     Log Out
                   </button>
                 </li>

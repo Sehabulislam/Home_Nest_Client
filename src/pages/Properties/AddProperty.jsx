@@ -1,19 +1,15 @@
-import React, { use, useContext, useEffect, useState } from "react";
+import React, { use, useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import useAxios from "../../hooks/useAxios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
+const propertiesPromise = fetch('http://localhost:3000/allProperties').then(res => res.json())
 
 const AddProperty = () => {
-  const [properties,setProperties] = useState([])
+   const intialProperties = use(propertiesPromise);
+   const [properties,setProperties] = useState(intialProperties)
   const { user } = useContext(AuthContext);
   const axiosInstance = useAxios();
-  useEffect(()=>{
-    axiosInstance('/allProperties')
-    .then(data => {
-      setProperties(data.data);
-    }).catch(error => toast.error(error.message))
-  },[axiosInstance])
   const navigate = useNavigate();
   const handleAddProperty = (e) => {
     e.preventDefault();
@@ -24,6 +20,7 @@ const AddProperty = () => {
     const seller_Name = form.sellerName.value;
     const seller_Email = form.sellerEmail.value;
     const location = form.location.value;
+    const seller_Photo = user.photoURL;
     const category = form.category.value;
     const description = form.description.value;
     const postedDate = new Date().toISOString().split("T")[0];
@@ -36,13 +33,16 @@ const AddProperty = () => {
       postedDate,
       seller_Name,
       seller_Email,
+      seller_Photo,
       description,
     };
     axiosInstance.post("/allProperties", newProperty).then((data) => {
       if (data.data.insertedId) {
-        setProperties([...properties,newProperty]);
+        newProperty._id = data.data.insertedId
         toast.success("Properties created successfully.");
         navigate("/allProperties");
+       const property = [...properties,newProperty]
+          setProperties(property);
       }
     });
   };
@@ -142,7 +142,7 @@ const AddProperty = () => {
                 Description
               </label>
               <textarea
-                placeholder="e.g. I bought this product 3 month ago. did not used more than 1/2 time. actually learning guitar is so tough..... "
+                placeholder="E.g., Describe the property's key features (e.g., 3 bedrooms, modern kitchen), amenities (e.g., gym, pool, security), and location advantages (e.g., near schools, city center, main road access)."
                 rows="4"
                 name="description"
                 className="w-full px-4 text-slate-800 bg-white border border-gray-300 focus:border-slate-900 text-sm pt-3 outline-0 rounded-md"
