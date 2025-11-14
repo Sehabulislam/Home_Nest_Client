@@ -45,12 +45,18 @@ export const router = createBrowserRouter([
       },
       {
         path: "/updateProperty/:id",
-        loader : ({params}) => fetch(`http://localhost:3000/updateProperty/${params.id}`),
+        loader: ({ params }) =>
+          fetch(
+            `https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/updateProperty/${params.id}`
+          ),
         element: <UpdateProperty></UpdateProperty>,
       },
       {
         path: "/propertyDetails/:id",
-        loader : ({params}) => fetch(`http://localhost:3000/propertyDetails/${params.id}`),
+        loader: ({ params }) =>
+          fetch(
+            `https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/propertyDetails/${params.id}`
+          ),
         element: (
           <PrivateRoute>
             <PropertyDetails></PropertyDetails>

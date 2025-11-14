@@ -11,11 +11,11 @@ const MyProperties = () => {
   const axiosInstance = useAxios();
   useEffect(() => {
     if (user?.email) {
-      axios(`http://localhost:3000/myProperties?email=${user.email}`).then(
-        (data) => {
-          setProperties(data.data);
-        }
-      );
+      axios(
+        `https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/myProperties?email=${user.email}`
+      ).then((data) => {
+        setProperties(data.data);
+      });
     }
   }, [user?.email]);
 

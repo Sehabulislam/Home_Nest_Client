@@ -3,11 +3,13 @@ import { AuthContext } from "../../context/AuthProvider";
 import useAxios from "../../hooks/useAxios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-const propertiesPromise = fetch('http://localhost:3000/allProperties').then(res => res.json())
+const propertiesPromise = fetch(
+  "https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/allProperties"
+).then((res) => res.json());
 
 const AddProperty = () => {
-   const intialProperties = use(propertiesPromise);
-   const [properties,setProperties] = useState(intialProperties)
+  const intialProperties = use(propertiesPromise);
+  const [properties, setProperties] = useState(intialProperties);
   const { user } = useContext(AuthContext);
   const axiosInstance = useAxios();
   const navigate = useNavigate();
@@ -38,11 +40,11 @@ const AddProperty = () => {
     };
     axiosInstance.post("/allProperties", newProperty).then((data) => {
       if (data.data.insertedId) {
-        newProperty._id = data.data.insertedId
+        newProperty._id = data.data.insertedId;
         toast.success("Properties created successfully.");
         navigate("/allProperties");
-       const property = [...properties,newProperty]
-          setProperties(property);
+        const property = [...properties, newProperty];
+        setProperties(property);
       }
     });
   };
@@ -101,7 +103,7 @@ const AddProperty = () => {
                 <option>Land</option>
               </select>
             </div>
-            
+
             <div>
               <label className="text-sm text-slate-900 font-medium mb-2 block">
                 User Name

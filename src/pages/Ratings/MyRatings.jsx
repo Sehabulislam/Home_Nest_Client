@@ -6,11 +6,11 @@ const MyRatings = () => {
   const [ratings, setRatings] = useState([]);
   useEffect(() => {
     if (user?.email) {
-      axios(`http://localhost:3000/myRatings?email=${user.email}`).then(
-        (data) => {
-          setRatings(data.data);
-        }
-      );
+      axios(
+        `https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/myRatings?email=${user.email}`
+      ).then((data) => {
+        setRatings(data.data);
+      });
     }
   }, [user?.email]);
   return (
