@@ -12,7 +12,7 @@ const MyProperties = () => {
   useEffect(() => {
     if (user?.email) {
       axios(
-        `https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/myProperties?email=${user.email}`
+        `https://homenest-server-kappa.vercel.app/myProperties?email=${user.email}`
       ).then((data) => {
         setProperties(data.data);
       });

@@ -4,6 +4,7 @@ import { Link, useNavigate} from "react-router";
 import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import bgImg from "../../assets/bg.svg"
 
 const Login = () => {
   const navigate = useNavigate()
@@ -37,7 +38,8 @@ const Login = () => {
   }
   return (
     <div className="flex flex-col items-center justify-center py-10">
-      <div className="p-6 sm:p-8 rounded-2xl bg-[url(./bg.svg)] bg-cover bg-center border border-gray-200 shadow-sm">
+      <div className="p-6 sm:p-8 rounded-2xl  shadow-sm"
+      style={{ backgroundImage: `url(${bgImg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <h1 className="text-white text-center text-4xl font-semibold">
           Sign in your account
         </h1>

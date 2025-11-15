@@ -7,7 +7,7 @@ const MyRatings = () => {
   useEffect(() => {
     if (user?.email) {
       axios(
-        `https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/myRatings?email=${user.email}`
+        `https://homenest-server-kappa.vercel.app/myRatings?email=${user.email}`
       ).then((data) => {
         setRatings(data.data);
       });

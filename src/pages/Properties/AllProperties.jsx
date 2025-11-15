@@ -5,7 +5,7 @@ import { IoSearch } from "react-icons/io5";
 import { AuthContext } from "../../context/AuthProvider";
 
 const propertiesPromise = fetch(
-  "https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/allProperties"
+  "https://homenest-server-kappa.vercel.app/allProperties"
 ).then((res) => res.json());
 
 const AllProperties = () => {
@@ -17,7 +17,7 @@ const AllProperties = () => {
     const searchValue = e.target.search.value;
     setLoading(true);
     fetch(
-      `https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/search?search=${searchValue}`
+      `https://homenest-server-kappa.vercel.app/search?search=${searchValue}`
     )
       .then((res) => res.json())
       .then((data) => {

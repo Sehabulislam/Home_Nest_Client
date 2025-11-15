@@ -5,7 +5,7 @@ import Testimonials from "./Testimonials";
 import WhyChoose from "./WhyChoose";
 
 const propertiesPromise = fetch(
-  "https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/featuredProperties"
+  "https://homenest-server-kappa.vercel.app/featuredProperties"
 ).then((res) => res.json());
 
 const Home = () => {

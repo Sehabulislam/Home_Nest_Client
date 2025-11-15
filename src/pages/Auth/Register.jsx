@@ -4,12 +4,13 @@ import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import bgImg2 from "../../assets/bg2.svg";
 
 const Register = () => {
   const { signWithGoogle, setUser, createUser, userUpdateProfile } =
     useContext(AuthContext);
   const navigate = useNavigate();
-  const [show,setShow] = useState(false);
+  const [show, setShow] = useState(false);
   const handleCreateUser = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -56,7 +57,14 @@ const Register = () => {
   };
   return (
     <div className="flex flex-col items-center justify-center py-10">
-      <div className="p-6 sm:p-8 rounded-2xl bg-[url(./bg2.svg)] bg-cover bg-center border border-gray-200 shadow-sm">
+      <div
+        className="p-6 sm:p-8 rounded-2xl shadow-sm"
+        style={{
+          backgroundImage: `url(${bgImg2})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         <h1 className="text-white text-center text-4xl font-semibold">
           Create your account
         </h1>
@@ -103,12 +111,17 @@ const Register = () => {
             </label>
             <input
               name="password"
-              type={show ? "password" : 'text'}
+              type={show ? "password" : "text"}
               required
               className="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
               placeholder="Enter your password"
             />
-            <span onClick={()=>setShow(!show)} className="absolute top-10 right-4">{show ? <FaEye size={17}/> : <FaEyeSlash size={17}/>}</span>
+            <span
+              onClick={() => setShow(!show)}
+              className="absolute top-10 right-4"
+            >
+              {show ? <FaEye size={17} /> : <FaEyeSlash size={17} />}
+            </span>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center">

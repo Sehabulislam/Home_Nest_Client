@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
         path: "/updateProperty/:id",
         loader: ({ params }) =>
           fetch(
-            `https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/updateProperty/${params.id}`
+            `https://homenest-server-kappa.vercel.app/updateProperty/${params.id}`
           ),
         element: <UpdateProperty></UpdateProperty>,
       },
@@ -55,7 +55,7 @@ export const router = createBrowserRouter([
         path: "/propertyDetails/:id",
         loader: ({ params }) =>
           fetch(
-            `https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/propertyDetails/${params.id}`
+            `https://homenest-server-kappa.vercel.app/propertyDetails/${params.id}`
           ),
         element: (
           <PrivateRoute>

@@ -27,16 +27,13 @@ const UpdateProperty = () => {
       category,
       description,
     };
-    fetch(
-      `https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/myProperties/${_id}`,
-      {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(updateProperty),
-      }
-    )
+    fetch(`https://homenest-server-kappa.vercel.app/myProperties/${_id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updateProperty),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.matchedCount) {

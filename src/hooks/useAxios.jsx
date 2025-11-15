@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL:
-    "https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app",
+  baseURL: "https://homenest-server-kappa.vercel.app",
 });
 
 const useAxios = () => {

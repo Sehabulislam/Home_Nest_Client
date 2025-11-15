@@ -4,7 +4,7 @@ import useAxios from "../../hooks/useAxios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 const propertiesPromise = fetch(
-  "https://homenest-server-hcpj3tua8-sehabul-islams-projects.vercel.app/allProperties"
+  "https://homenest-server-kappa.vercel.app/allProperties"
 ).then((res) => res.json());
 
 const AddProperty = () => {
